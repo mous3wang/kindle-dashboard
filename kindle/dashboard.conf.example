@@ -1,0 +1,12 @@
+# Copy this file to "dashboard.conf" in the same folder (/mnt/us/dashboard)
+# on the Kindle and set your server's address. Lines are KEY=value.
+
+# The dashboard server: where dashboard.png is served and where battery
+# reports go. Replace 192.168.0.100 with your server's LAN address and
+# 8080 with the HOST_PORT from the server's .env.
+DASH_URL=http://192.168.0.100:8080/dashboard.png
+DASH_BATT_URL=http://192.168.0.100:8080/batt
+
+# Refresh interval in seconds (should match the server's
+# GENERATE_INTERVAL; default 1800 = 30 minutes).
+DASH_INTERVAL=1800

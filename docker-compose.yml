@@ -1,0 +1,20 @@
+services:
+  kindle-dashboard:
+    build: .
+    image: kindle-dashboard
+    container_name: kindle-dashboard
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      # Paths inside the container are fixed; configure everything else
+      # (LAT, LON, TZ, ...) in .env — see .env.example.
+      OUT_PATH: /data/dashboard.png
+      REMINDERS_FILE: /data/reminders.json
+      DATA_DIR: /data
+      PORT: "8080"
+    ports:
+      - "${HOST_PORT:-8080}:8080"
+    volumes:
+      # Put your reminders.json in ./data on the host; the generated
+      # dashboard.png and battery.json also live there.
+      - ./data:/data

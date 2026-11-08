@@ -1,0 +1,7 @@
+.env
+data/dashboard.png
+data/battery.json
+data/reminders.json
+__pycache__/
+*.pyc
+out/
