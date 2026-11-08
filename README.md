@@ -39,7 +39,7 @@
 ### 第一步：部署服务器（Docker）
 
 ```bash
-git clone https://github.com/<your-name>/kindle-dashboard.git
+git clone https://github.com/mous3wang/kindle-dashboard.git
 cd kindle-dashboard
 
 cp .env.example .env
