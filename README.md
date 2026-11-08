@@ -74,6 +74,30 @@ docker compose up -d --build
 - `text`：显示文字；同一天的多条会按时间排序、用「，」连成一行（过长自动折成两行）
 - 屏幕最多显示未来 5 天（5 个日期组）
 
+
+### 用 HTTP 接口更新提醒（可选）
+
+不想直接改文件的话，可以给服务设置一个口令，通过接口整表更新提醒
+（POST 成功后会**立即重新生成图片**，不用等下一个 30 分钟周期）：
+
+1. 在 `.env` 里设置 `API_TOKEN`（如 `openssl rand -hex 24` 生成），重启服务
+   （`docker compose up -d`）。不设置则接口关闭。
+2. 读取当前提醒：
+
+```bash
+curl -H "X-Token: <你的口令>" http://<服务器IP>:8080/reminders
+```
+
+3. 更新（请求体是完整的提醒数组，整体替换；格式同上，服务端会校验
+   日期/时间/文本长度，旧表自动备份为 `reminders.json.bak`）：
+
+```bash
+curl -X POST -H "X-Token: <你的口令>" -H "Content-Type: application/json" \
+  --data '[{"date":"2027-01-01","time":"09:00","text":"新年快乐"}]' \
+  http://<服务器IP>:8080/reminders
+# -> {"ok": true, "count": 1, "regenerated": true}
+```
+
 ### 第三步：部署 Kindle 端
 
 1. USB 连接 Kindle，把仓库里的文件拷到对应位置：
